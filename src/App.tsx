@@ -14,7 +14,7 @@ const chainParams = {
 };
 
 function App() {
-  const { connectedWalletF, getBalanceF, switchoverChainF, checkChainSupportF, addCustomChainF, transferAccountsF, transferDaiAccountsF, getBlockHeightF, getNonceF, sigMessageF } = apiWb3
+  const { connectedWalletF, getBalanceF, switchoverChainF, checkChainSupportF, addCustomChainF, transferAccountsF, transferDaiAccountsF, getBlockHeightF, getNonceF, sigMessageF, addTokenContractF } = apiWb3
   const [address, setAddress] = useState('')
   // 连接钱包
   const connectedWallet = async () => {
@@ -82,6 +82,20 @@ function App() {
     console.log('签名消息', res);
 
   }
+  // 添加代币合约到钱包
+  const addTokenContract = async () => {
+    const res = await addTokenContractF({
+      type: "ERC20",
+      options: {
+        address: "0xaf9455e943797928be2d6cbb010b96d662d2c35e",
+        symbol: "USDT",
+        decimals: 18,
+        image: "https://chainfb.oss-cn-hangzhou.aliyuncs.com/ETH/1230/USDT_0xAF9455E943797928be2D6CBb010b96D662d2C35E.png",
+      },
+    })
+    console.log('res', res);
+
+  }
   return (
     <div className="App">
       <button onClick={connectedWallet}>连接钱包</button>
@@ -94,7 +108,7 @@ function App() {
       <button onClick={getNonce}>获取当前nonce</button>
       <button onClick={transferAccounts}>发送主网币</button>
       <button onClick={sigMessage}>签名消息</button>
-
+      <button onClick={addTokenContract}>添加代币合约到钱包</button>
     </div>
   );
 }

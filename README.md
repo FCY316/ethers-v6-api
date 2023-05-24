@@ -57,6 +57,19 @@
 
     返回值为 return { value: tx, state: true }; tx里面有上链的一系列参数
 
-## 11.listenerTransferF(transactionHash:string) 查询交易会自动 padding
+## 11.addTokenContractF(params)
+
+    params Type :{
+    type: string;
+    options: {
+    address: string;
+    symbol: string;
+    decimals: number;
+    image: string;
+    };
+    }
+    返回值为 return { value: 添加合约成功, state: true };
+
+## listenerTransferF(transactionHash:string) 查询交易会自动 padding
 
     返回值为 return true or false true交易成功，false交易失败

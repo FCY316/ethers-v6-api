@@ -1,6 +1,6 @@
 import { ethers } from "ethers";
 import { download, walletNameList, walletNameListShow } from "./walletName";
-import { addCustomChainType } from "@/interface";
+import { addCustomChainType, addTokenContractType } from "@/interface";
 const erc20 = require("@/abi/erc20.json");
 // 区块链的只读连接
 let provider: any = null;
@@ -84,7 +84,15 @@ export const switchoverChainF = async (chainId: number) => {
     return { e, state: false };
   }
 };
-
+// 自动添加代币合约
+export const addTokenContractF = async (params: addTokenContractType) => {
+  try {
+    await provider.send("wallet_watchAsset", params);
+    return { value: "添加合约成功", state: true };
+  } catch (e) {
+    return { e, state: false };
+  }
+};
 // 查询主网币余额
 export const getBalanceF = async (address: string) => {
   try {
