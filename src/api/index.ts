@@ -10,7 +10,9 @@ import {
   getBlockHeightF,
   getNonceF,
   sigMessageF,
-  addTokenContractF
+  addTokenContractF,
+  getBalanceDaiAccountsF,
+  getAuthorizationF
 } from "./walletApi";
 import {  watchWalletAddressF,
   watchWalletNetworkF} from './watch'
@@ -42,7 +44,11 @@ const apiWb3 = {
   // 签名消息
   sigMessageF,
   // 添加代币合约到钱包
-  addTokenContractF
+  addTokenContractF,
+  // 查询代币余额
+  getBalanceDaiAccountsF,
+  // 查询用户授权额度
+  getAuthorizationF
 };
 
 export default apiWb3;

@@ -14,11 +14,11 @@ const chainParams = {
 };
 
 function App() {
-  const { connectedWalletF, getBalanceF, switchoverChainF, checkChainSupportF, addCustomChainF, transferAccountsF, transferDaiAccountsF, getBlockHeightF, getNonceF, sigMessageF, addTokenContractF } = apiWb3
+  const { connectedWalletF, getBalanceF, switchoverChainF, checkChainSupportF, addCustomChainF, transferAccountsF, transferDaiAccountsF, getBlockHeightF, getNonceF, sigMessageF, addTokenContractF, getBalanceDaiAccountsF, getAuthorizationF } = apiWb3
   const [address, setAddress] = useState('')
   // 连接钱包
   const connectedWallet = async () => {
-    const res = await connectedWalletF('BitKeep', "0x5786d52c643d36Da07Bb9A8439Ed3e62317deF3C")
+    const res = await connectedWalletF('MetaMask', "0x5786d52c643d36Da07Bb9A8439Ed3e62317deF3C")
     if (!res.state) return
     setAddress(res.signer.address)
     console.log('连接钱包', res);
@@ -53,8 +53,7 @@ function App() {
     const res = await transferDaiAccountsF("0xbBaDeBb6C70f06B1155f3A2574fb8e02038Fe303", 100)
     if (!res.state) return
     console.log('代币转账', res);
-    // const ok = await listenerTransferF(res.value.hash)
-    // console.log('ok', ok);
+
   }
   // 查询当前块高
   const getBlockHeight = async () => {
@@ -94,7 +93,18 @@ function App() {
       },
     })
     console.log('res', res);
-
+  }
+  // 查询代币余额
+  const getBalanceDaiAccounts = async () => {
+    const res = await getBalanceDaiAccountsF(address)
+    if (!res.state) return
+    console.log('查询代币余额', res);
+  }
+  // 查询代币授权额度
+  const getAuthorization = async () => {
+    const res = await getAuthorizationF(address, '0xccc76a61352aeadd739f14e9975ee90b4111b331')
+    if (!res.state) return
+    console.log('查询代币授权额度', res);
   }
   return (
     <div className="App">
@@ -109,6 +119,9 @@ function App() {
       <button onClick={transferAccounts}>发送主网币</button>
       <button onClick={sigMessage}>签名消息</button>
       <button onClick={addTokenContract}>添加代币合约到钱包</button>
+      <button onClick={getBalanceDaiAccounts}>查询代币余额</button>
+      <button onClick={getAuthorization}>查询代币授权额度</button>
+
     </div>
   );
 }

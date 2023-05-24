@@ -143,6 +143,7 @@ export const transferAccountsF = async (address: string, money: number) => {
 };
 // 发送代币
 export const transferDaiAccountsF = async (address: string, money: number) => {
+  if (!erc20Contract) return { e: "您并未实例化erc20", state: false };
   try {
     const tx = await erc20Contract.transfer(
       address,
@@ -153,6 +154,47 @@ export const transferDaiAccountsF = async (address: string, money: number) => {
     return { e, state: false };
   }
 };
+// 查看代币余额
+export const getBalanceDaiAccountsF = async (address: string) => {
+  if (!erc20Contract) return { e: "您并未实例化erc20", state: false };
+  try {
+    const balance = await erc20Contract.balanceOf(address);
+    return { value: ethers.formatEther(balance), state: true };
+  } catch (e) {
+    return { e, state: false };
+  }
+};
+// 查询用户授权额度
+export const getAuthorizationF = async (
+  address: string,
+  contractAddress: string
+) => {
+  if (!erc20Contract) return { e: "您并未实例化erc20", state: false };
+  try {
+    const limit = await erc20Contract.allowance(
+      address,
+      contractAddress
+    );
+    return { value: ethers.formatEther(limit), state: true };
+  } catch (e) {
+    return { e, state: false };
+  }
+};
+// 授权
+// export const approve = async (stakingAddress: string,limit) => {
+// if(!erc20Contract) return { e:"您并未实例化erc20", state: false };
+//   try {
+//     limit = limit && ethers.MaxUint256
+//     const res = await erc20Contract.approve(
+//       stakingAddress,
+//       limit
+//     );
+//     return res;
+//   } catch (e) {
+//     return { e, state: false };
+
+//   }
+// };
 // 查询交易是否成功
 export const listenerTransferF = (transactionHash: any) => {
   return new Promise((reslove, reject) => {

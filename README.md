@@ -57,7 +57,7 @@
 
     返回值为 return { value: tx, state: true }; tx里面有上链的一系列参数
 
-## 11.addTokenContractF(params)
+## 11.addTokenContractF(params) 添加代币合约
 
     params Type :{
     type: string;
@@ -69,6 +69,14 @@
     };
     }
     返回值为 return { value: 添加合约成功, state: true };
+
+## 12.getBalanceDaiAccountsF(address:string) 查看代币余额
+
+    return { value: balance, state: true }; balance是进行过处理的数据
+
+## 13.getAuthorizationF( address: string,contractAddress: string) // 查询用户授权额度
+
+    return { value: limit, state: true }; limit是进行过处理的数据
 
 ## listenerTransferF(transactionHash:string) 查询交易会自动 padding
 
