@@ -1,46 +1,62 @@
-# Getting Started with Create React App
+### 个人使用，用于开发 web3 应用时的 api 调用，，只会暴露通用 api, 插件使用的是ethers@6.3.0，也会进行暴露
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### 每个函数都会返回一个对象，对象里面有 state 参数 这个参数可以用与判断 true 成功 false 失败
 
-## Available Scripts
+## 所有函数正确会返回{你需要的参数，state:true} 错误会返回{e:xxx,state:false} 正确返回的值可能会不一样，但错误的一定是一样的格式
 
-In the project directory, you can run:
+## 1.connectedWalletF(MetaMask:string,?contractAddress:string) 函数用于连接钱包,new Erc20，
 
-### `npm start`
+    可以连接MetaMask，BitKeep，TokenPocket(与MetaMask连接钱包方法相同，所以需要在TokenPocket把默认钱包改为小狐狸)
+    如果没有检测到钱包会自动跳转到各自的钱包的下载官网
+    返回值为 { provider, signer, state } provider只能用于只读，signer用于交互里面还有地址，详情见ethers v6文档 https://docs.ethers.org/v6/getting-started/#starting-glossary
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## 2.checkChainSupportF() 函数用于检测用户当前在那条链上
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+    返回值为 { value: chainId, state: true }  chainId是经过处理后的，不用进行二次处理
 
-### `npm test`
+## 3.addCustomChainF(chainParams) 添加链和切换链功能，虽然有切链的功能，但是并不能监听成功的回调
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+    返回值为 { value: 1 or 2, state: true }; 1 添加了链且切换到添加的链或者切换到某个链，2 添加了某个链但没切换到添加的链或者没切换到某个链 传入的参数chainParams是以下格式：
+    {
+    chainId: number,
+    chainName: string,
+    nativeCurrency: {
+      name: string,
+      symbol: string,
+      decimals: number,
+    },
+    rpcUrls: string[]
+    }
+    暂时没有添加区块浏览器的参数
 
-### `npm run build`
+## 4.switchoverChainF(chainId:number)切换链，但在钱包没有这条链的情况下，报错
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+    返回值为 { value: "切换链成功", state: true }
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## 5.getBalanceF(address: string)查询主网币余额
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+    返回值为 return { value: balance, state: true }; balance是进行过处理的数据
 
-### `npm run eject`
+## 6.getBlockHeightF()查询当前块高
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+    返回值为 return { value: blockNumber, state: true }; blockNumber的当前块高
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## 7.getNonceF()获取发送事务所需的下一个 nonce
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+    返回值为 return { value: nonce, state: true };
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## 8.sigMessageF(message: string)签名消息
 
-## Learn More
+    返回值为 return { value: sigMessage, state: true }; sigMessage签名出来的消息
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## 9.transferAccountsF(address: string, money: number) 发送交易(主网币)
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+    返回值为 return { value: tx, state: true }; tx里面有上链的一系列参数
+
+## 10.transferDaiAccountsF(address: string, money: number)发送代币
+
+    返回值为 return { value: tx, state: true }; tx里面有上链的一系列参数
+
+## 11.listenerTransferF(transactionHash:string) 查询交易会自动 padding
+
+    返回值为 return true or false true交易成功，false交易失败
