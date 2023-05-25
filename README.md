@@ -6,13 +6,13 @@
 
 ## scr/api 里面存放着代码
 
-index / 主要导出的文件
-walletApi / 功能性文件(切链，监听交易等)
-majorNetwork / 主网币的功能
-connectedWallet / 连接钱包函数所在文件
-erc20 / erc20 的方法
-watch / 一些监听的方法
-walletName / 主要是一些连接钱包的一些参数
+index / 主要导出的文件 <br/>
+walletApi / 功能性文件(切链，监听交易等)<br/>
+majorNetwork / 主网币的功能<br/>
+connectedWallet / 连接钱包函数所在文件<br/>
+erc20 / erc20 的方法<br/>
+watch / 一些监听的方法<br/>
+walletName / 主要是一些连接钱包的一些参数<br/>
 
 ## 注意：个人使用，如果觉得简单，废话多，<a href='http://www.baidu.com'>请点击</a>
 ### 1.connectedWalletF(MetaMask:string,?contractAddress:string) 函数用于连接钱包,new Erc20，
