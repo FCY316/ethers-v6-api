@@ -1,24 +1,27 @@
 import {
   addCustomChainF,
   checkChainSupportF,
-  connectedWalletF,
-  getBalanceF,
   switchoverChainF,
-  transferAccountsF,
   listenerTransferF,
-  transferDaiAccountsF,
-  getBlockHeightF,
-  getNonceF,
-  sigMessageF,
   addTokenContractF,
+} from "./walletApi";
+import { watchWalletAddressF, watchWalletNetworkF } from "./watch";
+import { connectedWalletF } from "./connectedWallet";
+import {
+  transferDaiAccountsF,
   getBalanceDaiAccountsF,
   getAuthorizationF,
   approveF,
   getDecimalsF,
   getTokenSymbolF,
-} from "./walletApi";
-import {  watchWalletAddressF,
-  watchWalletNetworkF} from './watch'
+} from "./erc20";
+import {
+  getBalanceF,
+  transferAccountsF,
+  getBlockHeightF,
+  getNonceF,
+  sigMessageF,
+} from "./majorNetwork";
 const apiWb3 = {
   // 连接钱包
   connectedWalletF,
@@ -57,7 +60,7 @@ const apiWb3 = {
   // 获取精度
   getDecimalsF,
   // 获取代币符号
-  getTokenSymbolF
+  getTokenSymbolF,
 };
 
 export default apiWb3;
