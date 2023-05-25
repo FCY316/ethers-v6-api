@@ -1,4 +1,4 @@
-## 个人使用，用于开发 web3 应用时的 api 调用，使用的是ethers@6.3.0，也会进行暴露(未完成)
+## 个人使用，用于开发 web3 evm 应用的 api 调用，使用的是ethers@6.3.0，也会进行暴露(未完成)
 
 ## 每个函数都会返回一个对象，对象里面有 state 参数 这个参数可以用与判断 true 成功 false 失败
 
@@ -15,6 +15,7 @@ watch / 一些监听的方法<br/>
 walletName / 主要是一些连接钱包的一些参数<br/>
 
 ## 注意：个人使用，如果觉得简单，废话多，<a href='http://www.baidu.com'>请点击</a>
+
 ### 1.connectedWalletF(MetaMask:string,?contractAddress:string) 函数用于连接钱包,new Erc20，
 
     可以连接MetaMask，BitKeep，TokenPocket(与MetaMask连接钱包方法相同，所以需要在TokenPocket把默认钱包改为小狐狸)
