@@ -12,7 +12,10 @@ import {
   sigMessageF,
   addTokenContractF,
   getBalanceDaiAccountsF,
-  getAuthorizationF
+  getAuthorizationF,
+  approveF,
+  getDecimalsF,
+  getTokenSymbolF,
 } from "./walletApi";
 import {  watchWalletAddressF,
   watchWalletNetworkF} from './watch'
@@ -48,7 +51,13 @@ const apiWb3 = {
   // 查询代币余额
   getBalanceDaiAccountsF,
   // 查询用户授权额度
-  getAuthorizationF
+  getAuthorizationF,
+  // 合约授权
+  approveF,
+  // 获取精度
+  getDecimalsF,
+  // 获取代币符号
+  getTokenSymbolF
 };
 
 export default apiWb3;

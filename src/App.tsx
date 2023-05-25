@@ -14,11 +14,12 @@ const chainParams = {
 };
 
 function App() {
-  const { connectedWalletF, getBalanceF, switchoverChainF, checkChainSupportF, addCustomChainF, transferAccountsF, transferDaiAccountsF, getBlockHeightF, getNonceF, sigMessageF, addTokenContractF, getBalanceDaiAccountsF, getAuthorizationF } = apiWb3
+  const { connectedWalletF, getBalanceF, switchoverChainF, checkChainSupportF, addCustomChainF, transferAccountsF, transferDaiAccountsF, getBlockHeightF, getNonceF,
+    sigMessageF, addTokenContractF, getBalanceDaiAccountsF, getAuthorizationF, approveF, getDecimalsF, getTokenSymbolF } = apiWb3
   const [address, setAddress] = useState('')
   // 连接钱包
   const connectedWallet = async () => {
-    const res = await connectedWalletF('MetaMask', "0x5786d52c643d36Da07Bb9A8439Ed3e62317deF3C")
+    const res = await connectedWalletF('BitKeep', "0x5786d52c643d36Da07Bb9A8439Ed3e62317deF3C")
     if (!res.state) return
     setAddress(res.signer.address)
     console.log('连接钱包', res);
@@ -106,6 +107,24 @@ function App() {
     if (!res.state) return
     console.log('查询代币授权额度', res);
   }
+  // 授权一个不知名的合约
+  const approve = async () => {
+    const res = await approveF('0xccc76a61352aeadd739f14e9975ee90b4111b331')
+    if (!res.state) return
+    console.log('授权一个不知名的合约', res);
+  }
+  // 获取代币符号
+  const getTokenSymbol = async () => {
+    const res = await getTokenSymbolF()
+    if (!res.state) return
+    console.log('获取代币符号', res);
+  }
+  // 获取代币精度
+  const getDecimals =async ()=>{
+    const res = await getDecimalsF()
+    if (!res.state) return
+    console.log('获取代币精度', res);
+  }
   return (
     <div className="App">
       <button onClick={connectedWallet}>连接钱包</button>
@@ -121,7 +140,9 @@ function App() {
       <button onClick={addTokenContract}>添加代币合约到钱包</button>
       <button onClick={getBalanceDaiAccounts}>查询代币余额</button>
       <button onClick={getAuthorization}>查询代币授权额度</button>
-
+      <button onClick={approve}>授权一个不知名的合约</button>
+      <button onClick={getTokenSymbol}>获取代币符号</button>
+      <button onClick={getDecimals}>获取代币精度</button>
     </div>
   );
 }

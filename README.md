@@ -49,11 +49,11 @@
 
     返回值为 return { value: sigMessage, state: true }; sigMessage签名出来的消息
 
-## 9.transferAccountsF(address: string, money: number) 发送交易(主网币)
+## 9.transferAccountsF(address: string, money: number,decimals: number = 18) 发送交易(主网币)
 
     返回值为 return { value: tx, state: true }; tx里面有上链的一系列参数
 
-## 10.transferDaiAccountsF(address: string, money: number)发送代币
+## 10.transferDaiAccountsF(address: string, money: number,decimals: number = 18)发送代币
 
     返回值为 return { value: tx, state: true }; tx里面有上链的一系列参数
 
@@ -70,13 +70,25 @@
     }
     返回值为 return { value: 添加合约成功, state: true };
 
-## 12.getBalanceDaiAccountsF(address:string) 查看代币余额
+## 12.getBalanceDaiAccountsF(address:string,decimals: number = 18) 查看代币余额
 
     return { value: balance, state: true }; balance是进行过处理的数据
 
-## 13.getAuthorizationF( address: string,contractAddress: string) // 查询用户授权额度
+## 13.getAuthorizationF( address: string,contractAddress: string,decimals: number = 18) 查询用户授权额度
 
     return { value: limit, state: true }; limit是进行过处理的数据
+
+## 14.approveF( stakingAddress: string,limit?: number,decimals: number = 18)授权
+
+    return { value: res, state: true };
+
+## 15.getDecimalsF() 获取代币的精度
+
+    return { value: decimals.toString(), state: true };
+
+## 16.getTokenSymbolF()获取代币符号
+
+    return { value: symbol, state: true };
 
 ## listenerTransferF(transactionHash:string) 查询交易会自动 padding
 
